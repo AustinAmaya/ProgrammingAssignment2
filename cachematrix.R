@@ -1,24 +1,29 @@
-## Put comments here that give an overall description of what your
-## functions do
+## A pair of functions that create and manipulate an augmented matrix object.
+## This augmented matrix caches a copy of its own inverse for convenience.
 
-## Write a short comment describing this function
+## This function converts a matrix to an augmented matrix object. The matrix 
+## object is actually a list of four functions described below.
 
 makeCacheMatrix <- function(x = matrix()) {
   xInv <- NULL
   
+  ## sets the matrix which underlies the CacheMatrix object
   set <- function(y) {
     x <<- y
     xInv <<- NULL
   }
   
+  ## returns the underlying matrix
   get <- function() {
     x
   }
   
+  ## sets the inverse of the matrix
   setinv <- function(inverse) {
     xInv <<- inverse
   }
   
+  ## returns the inverse of the matrix
   getinv <- function() {
     xInv
   }
@@ -32,10 +37,12 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## Replacement for the solve() function; it acts on CacheMatrix objects. It 
+## checks the object for a stored inverse and returns it if found; if a cached
+## inverse isn't found then an inverse is computed and stored.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  ## Return a matrix that is the inverse of 'x'
   xInv <- x$getinv()
   
   ## check whether we already have the inverse
